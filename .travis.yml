@@ -1,24 +1,19 @@
 language: node_js
 node_js:
-  - "8"
-
+- '8'
 dist: trusty
-
 addons:
   chrome: stable
-
 before_install:
-  - sudo chown root /opt/google/chrome/chrome-sandbox
-  - sudo chmod 4755 /opt/google/chrome/chrome-sandbox
-  - google-chrome-stable --headless --disable-gpu --remote-debugging-port=9222 http://localhost:9876 &
-  - npm install -g @angular/cli
-
+- openssl aes-256-cbc -K $encrypted_fb365c1216b5_key -iv $encrypted_fb365c1216b5_iv
+  -in deploy_rsa.enc -out deploy_rsa -d
+- sudo chown root /opt/google/chrome/chrome-sandbox
+- sudo chmod 4755 /opt/google/chrome/chrome-sandbox
+- google-chrome-stable --headless --disable-gpu --remote-debugging-port=9222 http://localhost:9876 &
+- npm install -g @angular/cli
 install: npm install
-
 script:
-  - ng test --single-run --progress
-  - ng e2e
-
+- ng test --single-run --progress
+- ng e2e
 after_success:
-  - ng build -prod
-
+- ng build -prod
