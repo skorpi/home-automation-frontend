@@ -24,6 +24,7 @@ script:
 
 after_success:
 - ng build -prod --base-href=/playground/
+- git rev-parse HEAD > /dist/version.txt
 
 before_deploy:
 - openssl aes-256-cbc -K $encrypted_fb365c1216b5_key -iv $encrypted_fb365c1216b5_iv -in deploy_rsa.enc -out /tmp/deploy_rsa -d
@@ -34,6 +35,7 @@ before_deploy:
 deploy:
   provider: script
   skip_cleanup: true
-  script: rsync -r --delete-after --quiet -e "ssh -p 19198" $TRAVIS_BUILD_DIR/dist travis@service.trustcnct.net:/var/www/playground/
+  script: rsync -r --delete-after --quiet -e "ssh -p 19198" $TRAVIS_BUILD_DIR/dist/ travis@service.trustcnct.net:/var/www/playground/
   on:
     branch: travis-test
+
