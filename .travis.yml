@@ -6,7 +6,7 @@ dist: trusty
 
 addons:
   chrome: stable
-  ssh_known_hosts: service.trustcnct.net
+  ssh_known_hosts: service.trustcnct.net:19198
 
 before_install:
 - sudo chown root /opt/google/chrome/chrome-sandbox
