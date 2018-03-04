@@ -33,5 +33,5 @@ deploy:
   provider: script
   skip_cleanup: true
   script: rsync -r --delete-after --quiet -e "ssh -p 19198" $TRAVIS_BUILD_DIR/dist travis@service.trustcnct.net:/var/www/playground/
-#  on:
-#    branch: master
+  on:
+    branch: travis-test
