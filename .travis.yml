@@ -24,7 +24,7 @@ script:
 
 after_success:
 - ng build -prod --base-href=/playground/
-- git rev-parse HEAD > dist/version.txt
+- echo "blubb" > dist/version.txt
 
 before_deploy:
 - openssl aes-256-cbc -K $encrypted_fb365c1216b5_key -iv $encrypted_fb365c1216b5_iv -in deploy_rsa.enc -out /tmp/deploy_rsa -d
@@ -40,4 +40,5 @@ deploy:
     branch: travis-test
 
 after_deploy:
-- if [ `git rev-parse HEAD` != `curl https://service.trustcnct.net/playground/version.txt`] exit 1
+# smoke test
+- [ "`git rev-parse HEAD`" == "`curl -s https://service.trustcnct.net/playground/version.txt`" ]
